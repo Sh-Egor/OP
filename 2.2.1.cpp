@@ -1,6 +1,5 @@
 #include <iostream>
-#include <cmath>
-#include "dpoint.h"
+#include "dpoint.cpp"
 using namespace std;
 
 double
@@ -9,68 +8,6 @@ F(dpoint a)
 	return a.func();
 }
 
-void
-dpoint::enter(){
-	for(int i = 1; i <= size; i++){
-		cin >> x[i];
-	}
-}
-
-void
-dpoint::show(){
-	for(int i = 1; i <= size; i++){
-		cout << x[i] << " ";
-	}
-	cout << endl;
-}
-
-dpoint 
-dpoint::operator*(double mult){
-	dpoint res(size);
-	for(int i = 1; i <= size; i++){
-		res.x[i] = x[i]*mult;
-	}
-	return res;
-}
-
-dpoint 
-dpoint::operator-(dpoint R){
-	dpoint res(size);
-	for(int i = 1; i <= size; i++){
-		res.x[i] = x[i] - R.x[i];
-	}
-	return res;
-}
-
-dpoint
-dpoint::operator-=(dpoint R)
-{
-	for(int i = 1; i <= size; i++){
-		x[i] -= R.x[i];
-	}
-	return *this;
-}
-
-dpoint 
-dpoint::grad(){
-	double h = 0.000001;
-	dpoint res(size);
-	for(int i = 1; i <= size; i++){
-		dpoint tmp(*this); 
-		tmp.x[i] += h;
-		res.x[i] = (F(tmp) - F(*this))/h;
-	}
-	return res;
-}
-
-double 
-dpoint::sNorm(){
-	double res = 0;
-	for(int i = 1; i <= size; i++){
-		res += x[i]*x[i];
-	}
-	return sqrt(res);
-}
 
 double
 argmin(dpoint L, dpoint R)
