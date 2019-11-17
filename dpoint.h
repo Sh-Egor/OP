@@ -1,15 +1,17 @@
+#ifndef DPOINT_H
+#define DPOINT_H
 class dpoint{
 public:
 	double* x;
 	int size;
 	dpoint(int S){
-		x = (double*)malloc((S + 1)*sizeof(double));
+		x = (double*)malloc((S)*sizeof(double));
 		size = S;
 	}
 	dpoint(const dpoint& R){
 		size = R.size;
-		x = (double*)malloc((size + 1)*sizeof(double));
-		for(int i = 1; i <= size; i++){
+		x = (double*)malloc((size)*sizeof(double));
+		for(int i = 0; i < size; i++){
 			x[i] = R.x[i];
 		}
 	}
@@ -27,3 +29,5 @@ public:
 		free(x);
 	}
 };
+double F(dpoint);
+#endif

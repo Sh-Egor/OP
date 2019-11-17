@@ -1,18 +1,19 @@
 #include <iostream>
 #include "dpoint.cpp"
+#include "matr.cpp"
 using namespace std;
 
 double
 argmin(dpoint L, dpoint R)
 {
-	double a = 16;
-	double crn = F(L - R*a);
+	double a = 256;
+	double crn = F(L + R*a);
 	a /= 2;
-	double min = F(L - R*a);
-	while(min < crn){
+	double min = F(L + R*a);
+	while(min < crn && a > 0.001){
 		crn = min;
 		a /=2 ;
-		min = F(L - R*a);
+		min = F(L + R*a);
 	}
 	return a;
 }
@@ -31,15 +32,21 @@ main(void)
 	cout << "Enter eps" << endl;
 	cin >> eps;
 	while(start.grad().sNorm() > eps && k < 1000000){
-		double a = argmin(start, start.grad());
-		start -= start.grad()*a;
+		matr H(start);
+		matr H1(start);
+		H1.backm(H);
+		dpoint p(start.size);
+		for(int i = 0; i < p.size; i++){
+			p.x[i] = 0;
+		}
+		p -= H1*(start.grad());
+		double a = argmin(start, p);
+		start += p*a;
 		k++;
 	}
 	start.show();
 	cout << "k = " << k << endl;
 	cout << F(start) << endl;
-	start.grad().show();
-	cout << start.grad().sNorm() << endl;
 	return 0;
 }
 
