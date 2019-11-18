@@ -42,4 +42,3 @@ main(void)
 	cout << start.grad().sNorm() << endl;
 	return 0;
 }
-

@@ -5,9 +5,12 @@
 double
 F(double x)
 {
-	//return x + 3/(x*x);
 	//return (x-1)*(x-1);
-	return x*x*x*4 - x*x*8 - x*11 + 5;
+	//return x*x*x*4 - x*x*8 - x*11 + 5;
+	//return x + 3/(x*x);
+	//return  (x + 2.5)/(4 - x*x);
+	//return -sin(x) - sin(x*3)/3;
+	return -sin(x)*2 - sin(x*2) - sin(x*3)*2/3;
 }
 
 double
@@ -32,7 +35,7 @@ Formula(double* x)
 	double res = 0.5;
 	double top = 1.0;
 	double bot = 1.0;
-	top =                                                                (x[2]*x[2] - x[3]*x[3])*F(x[1]) +                            (x[3]*x[3] - x[1]*x[1])*F(x[2]) +                            (x[1]*x[1] - x[2]*x[2])*F(x[3]);  
+	top =                                                                (x[2] + x[3])*(x[2] - x[3])*F(x[1]) +                        (x[3] + x[1])*(x[3] - x[1])*F(x[2]) +                        (x[1] + x[2])*(x[1] - x[2])*F(x[3]);  
 	bot =                                                                (x[2] - x[3])*F(x[1]) +                                      (x[3] - x[1])*F(x[2]) +                                      (x[1] - x[2])*F(x[3]);   
 	res = res*top/bot;
 	return res;
@@ -87,14 +90,16 @@ main(void)
 	double x[5];
 	x[1] = a;
 	x[3] = b;
-	x[2] = 0.5*(x[1]+x[2]);
+	x[2] = 0.5*(x[1]+x[3]);
 	x[0] = minimize(x);
 	x[4] = Formula(x);
-	while(fabs(x[4] - x[0]) > eps){
+	int k = 0;
+	while(fabs(x[4] - x[0]) > eps && k < 10){
 		resort(x);
 		renum(x);
 		x[0] = minimize(x);
 		x[4] = Formula(x);
+		k++;
 	}
 	printf("%lf\n",x[4]);
 	return 0;

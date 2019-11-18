@@ -22,6 +22,9 @@ public:
 	dpoint operator+(dpoint);
 	dpoint operator-=(dpoint);
 	dpoint operator+=(dpoint);
+	dpoint operator*=(double);
+	bool operator==(dpoint);
+	dpoint operator=(dpoint);
 	dpoint grad();
 	double sNorm();
 	double func();

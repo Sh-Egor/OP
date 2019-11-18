@@ -68,6 +68,35 @@ dpoint::operator+=(dpoint R)
 	return *this;
 }
 
+dpoint
+dpoint::operator*=(double mult)
+{
+	for(int i = 0; i < size; i++){
+		x[i] *= mult;
+	}
+	return *this;
+}
+
+bool
+dpoint::operator==(dpoint R)
+{
+	for(int i = 0; i < size; i++){
+		if(fabs(x[i] - R.x[i]) > 0.0003){
+			return false;
+		}
+	}
+	return true;
+}
+
+dpoint
+dpoint::operator=(dpoint R)
+{
+	for(int i = 0; i < size; i++){
+		x[i] = R.x[i];
+	}
+	return *this;
+}
+
 dpoint 
 dpoint::grad()
 {
@@ -94,10 +123,10 @@ dpoint::sNorm()
 double
 dpoint::func()
 {
-	return   (x[0] - 5)*(x[0] - 5)*4 + (x[1] - 6)*(x[1] - 6);
+	//return   (x[0] - 5)*(x[0] - 5)*4 + (x[1] - 6)*(x[1] - 6);
 	//return   (x[0]*x[0] + x[1] - 11)*(x[0]*x[0] + x[1] - 11) +       (x[0] + x[1]*x[1] - 7)*(x[0] + x[1]*x[1] - 7);
 	//return (x[1] - x[0]*x[0])*(x[1] - x[0]*x[0])*100 + (1 - x[0])*(1 - x[0]) + (x[3] - x[2]*x[2])*(x[3] - x[2]*x[2])*90 + (1 - x[2])*(1 - x[2]) + ((x[1] - 1)*(x[1] - 1) +         (x[3] - 1)*(x[3] - 1))*10.1 + (x[1] - 1)*(x[3] - 1)*19.8; 
-	//return pow(x[0]+x[1]*10,2) + pow(x[2]-x[3],2)*5 + pow(x[1]-x[2]*2,4) + pow(x[0]-x[3],4)*10;     
+	return pow(x[0]+x[1]*10,2) + pow(x[2]-x[3],2)*5 + pow(x[1]-x[2]*2,4) + pow(x[0]-x[3],4)*10;     
 }
 
 double
