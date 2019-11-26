@@ -1,0 +1,12 @@
+set terminal png size 1080,1080
+set output "photo.png"
+set contour
+set view map
+set cntrparam levels incremental 1,5,250
+set xrange [-1:7]
+set yrange [-1:7]
+set ticslevel 0
+set multiplot
+splot 4*(x-5)*(x-5) + (y-6)*(y-6)
+splot "data.txt" with lp lw 4 lt 7 pointtype 7
+unset multiplot

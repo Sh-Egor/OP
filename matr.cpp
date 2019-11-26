@@ -51,7 +51,8 @@ matr::backm(const matr& H)
 		}
 		x[i][i] = 1;
 	}
-	gauss(H.x,x,size);}
+	gauss(H.x,x,size);
+}
 
 matr::~matr()
 {

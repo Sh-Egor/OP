@@ -81,7 +81,7 @@ bool
 dpoint::operator==(dpoint R)
 {
 	for(int i = 0; i < size; i++){
-		if(fabs(x[i] - R.x[i]) > 0.0003){
+		if(fabs(x[i] - R.x[i]) > 0.0001){
 			return false;
 		}
 	}

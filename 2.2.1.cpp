@@ -1,6 +1,15 @@
 #include <iostream>
+#include <stdio.h>
 #include "dpoint.cpp"
 using namespace std;
+
+void
+addFile(dpoint dot)
+{
+	FILE* out = fopen("data.txt","a+");
+	fprintf(out, "%lf %lf %lf\n",dot.x[0],dot.x[1],F(dot));
+	fclose(out);
+}
 
 double
 argmin(dpoint L, dpoint R)
@@ -22,6 +31,8 @@ main(void)
 {
 	int N;
 	int k = 0;
+	FILE* out = fopen("data.txt","w");
+	fclose(out);
 	double eps;
 	cout << "Enter V size" << endl;
 	cin >> N;
@@ -30,9 +41,11 @@ main(void)
 	start.enter();
 	cout << "Enter eps" << endl;
 	cin >> eps;
+	addFile(start);
 	while(start.grad().sNorm() > eps && k < 1000000){
 		double a = argmin(start, start.grad());
 		start -= start.grad()*a;
+		addFile(start);
 		k++;
 	}
 	start.show();
