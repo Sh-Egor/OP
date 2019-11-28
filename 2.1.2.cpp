@@ -54,7 +54,8 @@ main(void)
 	cout << "Enter V size:" << endl;
 	cin >> size;
 	double eps;
-	double z = 0.1;
+	double z = 0.5;
+	int k = 0;
 	cout << "Enter eps:" << endl;
 	cin >> eps;
 	valarray<double> b1(size);
@@ -74,7 +75,8 @@ main(void)
 		xk = b1;
 		b2 = search(xk,h);
 		do{
-			xk += b2;
+			k++;
+			xk = b2;
 			xk += b2;
 			xk -= b1;
 			x = search(xk,h);
@@ -82,7 +84,7 @@ main(void)
 			if(f(x) <= f(b1)){
 				b2 = x;
 			}
-		}while(f(x) <= f(b1));
+		}while(f(x) <= f(b1)&& k < 100000);
 		for(int i = 0; i < h.size(); i++)
 			h[i] *= z;
 	}
